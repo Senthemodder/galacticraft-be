@@ -1,0 +1,16 @@
+{
+            "format_version": "1.20.41",
+            "minecraft:item": {
+                "description": {
+                    "identifier": "galacticraft:basic_item.solar_module_1"
+                },
+                "components": {
+                    "minecraft:display_name": {
+                        "value": "Full Solar Panel"
+                    },
+                    "minecraft:icon": {
+                        "texture": "basic_item.solar_module_1"
+                    }
+                }
+            }
+        }

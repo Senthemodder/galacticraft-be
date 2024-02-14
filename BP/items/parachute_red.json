@@ -1,0 +1,16 @@
+{
+            "format_version": "1.20.41",
+            "minecraft:item": {
+                "description": {
+                    "identifier": "galacticraft:parachute_red"
+                },
+                "components": {
+                    "minecraft:display_name": {
+                        "value": "Red Parachute"
+                    },
+                    "minecraft:icon": {
+                        "texture": "parachute_red"
+                    }
+                }
+            }
+        }

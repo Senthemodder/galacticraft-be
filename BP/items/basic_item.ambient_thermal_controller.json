@@ -1,0 +1,16 @@
+{
+            "format_version": "1.20.41",
+            "minecraft:item": {
+                "description": {
+                    "identifier": "galacticraft:basic_item.ambient_thermal_controller"
+                },
+                "components": {
+                    "minecraft:display_name": {
+                        "value": "Ambient Thermal Controller"
+                    },
+                    "minecraft:icon": {
+                        "texture": "basic_item.ambient_thermal_controller"
+                    }
+                }
+            }
+        }

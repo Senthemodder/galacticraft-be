@@ -1,0 +1,16 @@
+{
+            "format_version": "1.20.41",
+            "minecraft:item": {
+                "description": {
+                    "identifier": "galacticraft:parachute_black"
+                },
+                "components": {
+                    "minecraft:display_name": {
+                        "value": "Black Parachute"
+                    },
+                    "minecraft:icon": {
+                        "texture": "parachute_black"
+                    }
+                }
+            }
+        }

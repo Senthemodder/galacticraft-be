@@ -1,153 +1,155 @@
 import fs from "fs";
 import path from "path";
+import Jimp from "jimp";
+
 /**
  * Convert a .obj file to a .json Minecraft model
  * @param {string} objFileContent
- * @param {File} texture
+ * @param {string} texturePath - Path to the texture file
  * @param {string} modelId
  * @param {number} scale
- * @returns
+ * @returns {Promise<Object>}
  */
-async function OBJtoMC(objFileContent, texture, modelId, scale = 1) {
+async function OBJtoMC(objFileContent, texturePath, modelId, scale = 1) {
   let positions = [];
   let normals = [];
   let uvs = [];
   let polys = [];
   const bones = [];
 
-  const image = texture
-    ? await getImage(texture).catch((err) => {
-        console.error(err);
-        return null;
-      })
-    : null;
-  // Get width & height
-  const width = image ? image.width : 32;
-  const height = image ? image.height : 32;
+  try {
+    const image = await getImage(texturePath);
+    // Get width & height
+    const width = image.bitmap.width;
+    const height = image.bitmap.height;
 
-  objFileContent.split(/\r\n|\n/g).forEach((line) => {
-    const firstSpace = line.indexOf(" ");
-    const defType = line.substring(0, firstSpace);
-    const data = line.substring(firstSpace + 1, line.length);
-
-    switch (defType) {
-      case "v":
-        positions.push(
-          data
-            .trim()
+    objFileContent.split(/\r\n|\n/g).forEach((line) => {
+      const [defType, data] = line.trim().split(/\s(.+)/);
+      switch (defType) {
+        case "v":
+          positions.push(
+            data.split(" ").map((str, i) => (i === 0 ? -scale : scale) * Number(str))
+          );
+          break;
+        case "vn":
+          normals.push(
+            data.split(" ").map((str, i) => (i === 0 ? -1 : 1) * Number(str))
+          );
+          break;
+        case "vt":
+          uvs.push(data.split(" ").map(Number));
+          break;
+        case "f":
+          const face = data
             .split(" ")
-            .map((str, i) => (i === 0 ? -scale : scale) * Number(str))
-        );
-        break;
-      case "vn":
-        normals.push(
-          data
-            .trim()
-            .split(" ")
-            .map((str, i) => (i === 0 ? -1 : 1) * Number(str))
-        );
-        break;
-      case "vt":
-        const uv = data
-          .trim()
-          .split(" ")
-          .map((str, i) => Number(str));
-        uvs.push([uv[0], uv[1]]);
-        break;
-      case "f":
-        const face = data
-          .trim()
-          .split(" ")
-          .map((index) => {
-            const v = Number(index.split("/")[0]);
-            const vt =
-              index.includes("/") && !index.includes("//")
-                ? Number(index.split("/")[1])
-                : Number(index.split("/")[0]);
-            const vn = index.includes("//")
-              ? Number(index.split("//")[1])
-              : Number(
-                  index.split("/").length === 3
-                    ? index.split("/")[2]
-                    : index.split("/")[0]
-                );
-            return [v - 1, vn - 1, vt - 1];
-          });
-        //Minecraft currently doesn't support triangular shapes
-        while (face.length <= 3) face.push(face[0]);
-        while (face.length > 4) face.pop();
-        polys.push(face);
-
-        break;
-      // TODO: SUPPORT FOR MULTIPLE BONES
-      // case 'o':
-      // 	bones.push({
-      // 		name: data.trim(),
-      // 		poly_mesh: {
-      // 			normalized_uvs: true,
-      // 			positions,
-      // 			normals,
-      // 			uvs,
-      // 			polys,
-      // 		},
-      // 	})
-      // 	polys = []
-      // 	break
-    }
-  });
-
-  if (polys.length > 0) {
-    bones.push({
-      name: "body",
-      poly_mesh: {
-        normalized_uvs: true,
-        positions,
-        normals,
-        uvs,
-        polys,
-      },
+            .map((index) => {
+              const [v, vt, vn] = index.split("/").map(Number);
+              return [v - 1, vn - 1, vt - 1];
+            });
+          // Minecraft currently doesn't support triangular shapes
+          while (face.length <= 3) face.push(face[0]);
+          while (face.length > 4) face.pop();
+          polys.push(face);
+          break;
+      }
     });
-  }
 
-  return {
-    format_version: "1.12.0",
-    "minecraft:geometry": [
-      {
-        description: {
-          identifier: modelId,
-          texture_width: width,
-          texture_height: height,
+    if (polys.length > 0) {
+      bones.push({
+        name: "body",
+        poly_mesh: {
+          normalized_uvs: true,
+          positions,
+          normals,
+          uvs,
+          polys,
         },
-        bones,
-      },
-    ],
-  };
+      });
+    }
+    return {
+      format_version: "1.12.0",
+      "minecraft:geometry": [
+        {
+          description: {
+            identifier: modelId,
+            texture_width: width,
+            texture_height: height,
+          },
+          bones,
+        },
+      ],
+    };
+  } catch (error) {
+    console.error("Error processing texture:", error);
+    return null;
+  }
 }
 
 /**
- * A function that turns a File object into an Image object
+ * A function that turns a texture path into a Jimp image
+ * @param {string} filePath - Path to the image file
+ * @returns {Promise<Jimp>}
  */
-function getImage(file) {
-  return self.createImageBitmap(file);
+function getImage(filePath) {
+  return Jimp.read(filePath);
 }
 
-fs.readdirSync("./models", { withFileTypes: true })
-  .filter((dir) => dir.name.endsWith(".obj"))
-  .forEach((dir) => {
-    if (dir.isDirectory()) return;
-    const transformedName = dir.name.replace('.obj')
-    const textureFiles = walkDir('./blocks').filter(file=>file.name.endsWith('.png'));
-    
-  });
 
+async function generateModels() {
+  const objFiles = fs.readdirSync("./models", { withFileTypes: true })
+    .filter((dir) => dir.name.endsWith(".obj"));
+
+  await Promise.all(objFiles.map(async (dir) => {
+    if (dir.isDirectory()) return;
+    const transformedName = dir.name.replace('.obj', '');
+    const objFilePath = path.join("./models", dir.name);
+    const objFileContent = fs.readFileSync(objFilePath, "utf8");
+    const textureFiles = walkDir("./blocks")
+    const textureFile = textureFiles.find(texture => texture.name.includes(transformedName + '.png'));
+
+    if (textureFile) {
+      const textureFilePath = path.resolve(textureFile.path,textureFile.name);
+      const genModels = await OBJtoMC(objFileContent, textureFilePath, `galaticraft:${transformedName}`);
+      fs.mkdirSync('./RP/models',{recursive:true})
+      fs.writeFileSync(`./RP/models/${transformedName}.json`, JSON.stringify(genModels,null,2));
+    } else {
+     const name = objFileContent.split('#')[1].split(':').pop().replace('.blend','')
+     if (name && name.length > 0){
+      const textureFile = textureFiles.find(texture => texture.name.includes(name));
+      console.warn(textureFile)
+      if (textureFile){
+      const textureFilePath = path.resolve(textureFile.path,textureFile.name);
+      console.warn(textureFilePath)
+      const genModels = await OBJtoMC(objFileContent, textureFilePath, `galaticraft:${transformedName}`);
+      fs.mkdirSync('./RP/models',{recursive:true})
+      fs.writeFileSync(`./RP/models/${transformedName}.json`, JSON.stringify(genModels,null,2));
+      }
+     }
+    }
+  }));
+}
+
+
+// Your walkDir function remains unchanged
+
+generateModels().catch((error) => {
+  console.error("Error generating models:", error);
+});
+
+
+
+/**
+ * Recursively walks through a directory and returns all files
+ * @param {string} dirPath
+ * @returns {Dirent[]}
+ */
 function walkDir(dirPath) {
   let files = [];
   fs.readdirSync(dirPath, { withFileTypes: true }).forEach((dir) => {
     switch (dir.isDirectory()) {
       case true:
-        files.push(...walkDir(dir.path));
+        files.push(...walkDir(path.join(dirPath, dir.name)));
         break;
-
       case false:
         files.push(dir);
         break;

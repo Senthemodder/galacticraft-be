@@ -1,5 +1,7 @@
 import { EquipmentSlot, ItemStack, system, world } from '@minecraft/server';
 
+//import Celestial Selection Panel WIP
+import "./celestial_selector.js"
 
 // This code is not well-done, but it is normal
 const slots = [ "head","body","legs","feet","tank1","tank2","frequency","mask","parachute","thermal","gear" ];

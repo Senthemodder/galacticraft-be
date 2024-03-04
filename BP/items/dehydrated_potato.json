@@ -1,1 +1,16 @@
-{"format_version":"1.20.41","minecraft:item":{"description":{"identifier":"galacticraft:dehydrated_potato"},"components":{"minecraft:display_name":{"value":"Dehydrated Potatoes"},"minecraft:icon":{"texture":"dehydrated_potato"}}}}
+{
+    "format_version": "1.20.20",
+    "minecraft:item": {
+        "description": {
+            "identifier": "galacticraft:dehydrated_potato"
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "Dehydrated Potatoes"
+            },
+            "minecraft:icon": {
+                "texture": "dehydrated_potato"
+            }
+        }
+    }
+}

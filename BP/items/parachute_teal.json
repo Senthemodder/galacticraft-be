@@ -1,16 +1,16 @@
 {
-            "format_version": "1.20.41",
-            "minecraft:item": {
-                "description": {
-                    "identifier": "galacticraft:parachute_teal"
-                },
-                "components": {
-                    "minecraft:display_name": {
-                        "value": "Cyan Parachute"
-                    },
-                    "minecraft:icon": {
-                        "texture": "parachute_teal"
-                    }
-                }
+    "format_version": "1.20.20",
+    "minecraft:item": {
+        "description": {
+            "identifier": "galacticraft:parachute_teal"
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "Cyan Parachute"
+            },
+            "minecraft:icon": {
+                "texture": "parachute_teal"
             }
         }
+    }
+}

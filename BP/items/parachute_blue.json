@@ -1,16 +1,16 @@
 {
-            "format_version": "1.20.41",
-            "minecraft:item": {
-                "description": {
-                    "identifier": "galacticraft:parachute_blue"
-                },
-                "components": {
-                    "minecraft:display_name": {
-                        "value": "Light Blue Parachute"
-                    },
-                    "minecraft:icon": {
-                        "texture": "parachute_blue"
-                    }
-                }
+    "format_version": "1.20.20",
+    "minecraft:item": {
+        "description": {
+            "identifier": "galacticraft:parachute_blue"
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "Light Blue Parachute"
+            },
+            "minecraft:icon": {
+                "texture": "parachute_blue"
             }
         }
+    }
+}

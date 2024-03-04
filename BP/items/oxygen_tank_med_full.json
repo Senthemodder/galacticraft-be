@@ -1,16 +1,16 @@
 {
-            "format_version": "1.20.41",
-            "minecraft:item": {
-                "description": {
-                    "identifier": "galacticraft:oxygen_tank_med_full"
-                },
-                "components": {
-                    "minecraft:display_name": {
-                        "value": "Medium Oxygen Tank"
-                    },
-                    "minecraft:icon": {
-                        "texture": "oxygen_tank_med_full"
-                    }
-                }
+    "format_version": "1.20.20",
+    "minecraft:item": {
+        "description": {
+            "identifier": "galacticraft:oxygen_tank_med_full"
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "Medium Oxygen Tank"
+            },
+            "minecraft:icon": {
+                "texture": "oxygen_tank_med_full"
             }
         }
+    }
+}

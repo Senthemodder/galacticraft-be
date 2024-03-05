@@ -245,6 +245,7 @@
           {
             "head":{
               "type":"image",
+              "fill":true,
               "size": [16,16],
         	  "anchor_from": "top_middle",
          	 "anchor_to": "top_middle",
@@ -258,6 +259,7 @@
           {
             "body":{
               "type":"image",
+              "fill":true,
               "size": [16,16],
         	  "anchor_from": "top_middle",
          	 "anchor_to": "top_middle",
@@ -271,6 +273,7 @@
           {
             "legs":{
               "type":"image",
+              "fill":true,
               "size": [16,16],
         	  "anchor_from": "top_middle",
          	 "anchor_to": "top_middle",
@@ -284,12 +287,122 @@
           {
             "feet":{
               "type":"image",
+              "fill":true,
               "size": [16,16],
         	  "anchor_from": "top_middle",
          	 "anchor_to": "top_middle",
               "texture": "textures/ui/extra_slots/feet",
               "offset": [
                 0,
+                54
+              ]
+            }
+          }
+        ]
+    },
+    "other_images":{
+      "type":"panel",
+        "anchor_from": "top_right",
+        "anchor_to": "top_right",
+        "size": [
+            20,
+            74
+        ],
+        "controls":[
+          {
+            "reactor":{
+              "type":"image",
+              "fill":true,
+              "size": [16,16],
+        	  "anchor_from": "top_middle",
+         	 "anchor_to": "top_middle",
+              "texture": "textures/ui/extra_slots/shield",
+              "offset": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "parachute":{
+              "type":"image",
+              "fill":true,
+              "size": [16,16],
+        	  "anchor_from": "top_middle",
+         	 "anchor_to": "top_middle",
+              "texture": "textures/ui/extra_slots/parachute",
+              "offset": [
+                18,
+                18
+              ]
+            }
+          },
+          {
+            "frequency":{
+              "type":"image",
+              "fill":true,
+              "size": [16,16],
+        	  "anchor_from": "top_middle",
+         	 "anchor_to": "top_middle",
+              "texture": "textures/ui/extra_slots/frequency",
+              "offset": [
+                -18,
+                18
+              ]
+            }
+          },
+          {
+            "mask":{
+              "type":"image",
+              "fill":true,
+              "size": [16,16],
+        	  "anchor_from": "top_middle",
+         	 "anchor_to": "top_middle",
+              "texture": "textures/ui/extra_slots/mask",
+              "offset": [
+                0,
+                18
+              ]
+            }
+          },
+          {
+            "gear":{
+              "type":"image",
+              "fill":true,
+              "size": [16,16],
+        	  "anchor_from": "top_middle",
+         	 "anchor_to": "top_middle",
+              "texture": "textures/ui/extra_slots/gear",
+              "offset": [
+                0,
+                36
+              ]
+            }
+          },
+          {
+            "tank1":{
+              "type":"image",
+              "fill":true,
+              "size": [16,16],
+        	  "anchor_from": "top_middle",
+         	 "anchor_to": "top_middle",
+              "texture": "textures/ui/extra_slots/tank",
+              "offset": [
+                -9,
+                54
+              ]
+            }
+          },
+          {
+            "tank2":{
+              "type":"image",
+              "fill":true,
+              "size": [16,16],
+        	  "anchor_from": "top_middle",
+         	 "anchor_to": "top_middle",
+              "texture": "textures/ui/extra_slots/tank",
+              "offset": [
+                9,
                 54
               ]
             }
@@ -349,10 +462,19 @@
                 }
             },
             {
+                "slot_reactor@chest.slot_reactor_panel": {
+                    "offset": [
+                        -15,
+                        -4
+                    ],
+                "layer":2
+                }
+            },
+            {
                 "armor_images@chest.armor_images": {
                     "offset": [
                         84,
-                        -3
+                        -2
                     ],
      		   "anchor_from": "top_left",
        		 "anchor_to": "top_left",
@@ -360,12 +482,12 @@
                 }
             },
             {
-                "slot_reactor@chest.slot_reactor_panel": {
+                "other_images@chest.other_images": {
                     "offset": [
-                        -15,
-                        -4
+                        -16,
+                        -1
                     ],
-                "layer":2
+                "layer":10
                 }
             }
         ]
@@ -435,19 +557,19 @@
         "$ct": "$container_title",
         "variables": [
             {
-                "requires": "($desktop_screen and not ($ct = 'extra_slots_2024'))",
+                "requires": "($desktop_screen and ($ct - 'extra_slots_2024') = '$ct')",
                 "$screen_content": "chest.small_chest_panel",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
-                "requires": "($ct = 'extra_slots_2024')",
+                "requires": "(not (($ct - 'extra_slots_2024') = $ct))",
                 "$screen_content": "chest.galax_panel",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
             },
             {
-                "requires": "($pocket_screen and not ($ct = 'extra_slots_2024'))",
+                "requires": "($pocket_screen and ($ct - 'extra_slots_2024') = $ct)",
                 "$use_custom_pocket_toast": true,
                 "$screen_content": "pocket_containers.small_chest_panel"
             }

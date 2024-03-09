@@ -266,6 +266,7 @@ system.runInterval(async()=>
 
  
 system.afterEvents.scriptEventReceive.subscribe((event)=>{
+	if (event.id !== "delete:durability") return;
     let {sourceEntity:p} = event;
     let item = p.getComponent("equippable").getEquipment(EquipmentSlot.Mainhand);
     let dur = item.getComponent(ItemComponentTypes.Durability);

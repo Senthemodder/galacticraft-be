@@ -557,21 +557,21 @@
         "$ct": "$container_title",
         "variables": [
             {
-                "requires": "($desktop_screen and ($ct - 'extra_slots_2024') = '$ct')",
+                "requires": "$desktop_screen",
                 "$screen_content": "chest.small_chest_panel",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
+            },
+            {
+                "requires": "$pocket_screen",
+                "$use_custom_pocket_toast": true,
+                "$screen_content": "pocket_containers.small_chest_panel"
             },
             {
                 "requires": "(not (($ct - 'extra_slots_2024') = $ct))",
                 "$screen_content": "chest.galax_panel",
                 "$screen_bg_content": "common.screen_background",
                 "$screen_background_alpha": 0.4
-            },
-            {
-                "requires": "($pocket_screen and ($ct - 'extra_slots_2024') = $ct)",
-                "$use_custom_pocket_toast": true,
-                "$screen_content": "pocket_containers.small_chest_panel"
             }
         ]
     }

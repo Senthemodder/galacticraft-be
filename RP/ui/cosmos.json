@@ -29,14 +29,46 @@
 					"size": [95, 137],
 					"anchor_from": "top_right",
 					"anchor_to": "top_right",
-					"offset": [-10, 10],
+					"offset": [-5, 5],
+					"bindings": [
+						{
+							"binding_type": "view",
+							"source_property_name": "(not (#form_text = ''))",
+							"target_property_name": "#visible"
+						}
+					],
 					"controls": [
 						{
-							"launch_button@cosmos.form_buttons": {
+							"green_launch_button@cosmos.form_buttons": {
 								"$buttons": "cosmos.launch_button",
 								"anchor_from": "top_right",
 								"anchor_to": "top_right",
-								"offset": [21, 0]
+								"offset": [21, 0],
+								"bindings": [
+									{
+										"binding_name": "#form_button_length",
+										"binding_name_override": "#collection_length"
+									},
+									{
+										"binding_type": "view",
+										"source_property_name": "(('%.3s' * #form_text) = '§t')",
+										"target_property_name": "#visible"
+									}
+								]
+							}
+						},
+						{
+							"red_launch_button@cosmos.launch_button_content": {
+								"color": [1, 0, 0],
+								"anchor_from": "top_right",
+								"anchor_to": "top_right",
+								"bindings": [
+									{
+										"binding_type": "view",
+										"source_property_name": "(('%.3s' * #form_text) = '§f')",
+										"target_property_name": "#visible"
+									}
+								]
 							}
 						},
 						{
@@ -70,6 +102,13 @@
 											"offset": [0, 1]
 										}
 									}
+								],
+								"bindings": [
+									{
+										"binding_type": "view",
+										"source_property_name": "(#form_text - ('%.9s' * #form_text) = 'Overworld')",
+										"target_property_name": "#visible"
+									}
 								]
 							}
 						}
@@ -84,7 +123,7 @@
 					"size": [95, 53],
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [10, 10],
+					"offset": [5, 5],
 					"controls": [
 						{
 							"name": {
@@ -194,6 +233,108 @@
 				}
 			},
 			{
+				"title": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/title_box",
+					"color": [0, 0.5, 1],
+					"size": [141, 16],
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"offset": [0, 5],
+					"bindings": [
+						{
+							"binding_type": "view",
+							"source_property_name": "(not (#form_text = ''))",
+							"target_property_name": "#visible"
+						}
+					],
+					"controls": [
+						{
+							"note_label": {
+								"type": "label",
+								"text": "#planet",
+								"layer": 2,
+								"bindings": [
+									{
+										"binding_type": "view",
+										"source_property_name": "(#form_text - ('%.9s' * #form_text))",
+										"target_property_name": "#planet"
+									}
+								]
+							}
+						},
+						{
+							"red_tier": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/title_box",
+								"color": [1, 0, 0],
+								"size": [94, 11],
+								"anchor_from": "bottom_middle",
+								"anchor_to": "top_middle",
+								"bindings": [
+									{
+										"binding_type": "view",
+										"source_property_name": "(('%.3s' * #form_text) = '§f')",
+										"target_property_name": "#tier"
+									}
+								],
+								"controls": [
+									{
+										"note_label": {
+											"type": "label",
+											"text": "#tier",
+											"color": [0.7, 0.7, 0.7],
+											"layer": 2,
+											"bindings": [
+												{
+													"binding_type": "view",
+													"source_property_name": "(('%.9s' * #form_text) - ('%.3s' * #form_text))",
+													"target_property_name": "#tier"
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"green_tier": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/title_box",
+								"color": [0, 1, 0],
+								"size": [94, 11],
+								"anchor_from": "bottom_middle",
+								"anchor_to": "top_middle",
+								"bindings": [
+									{
+										"binding_type": "view",
+										"source_property_name": "(('%.3s' * #form_text) = '§t')",
+										"target_property_name": "#visible"
+									}
+								],
+								"controls": [
+									{
+										"note_label": {
+											"type": "label",
+											"text": "#tier",
+											"color": [0.7, 0.7, 0.7],
+											"layer": 2,
+											"bindings": [
+												{
+													"binding_type": "view",
+													"source_property_name": "(('%.9s' * #form_text) - ('%.3s' * #form_text))",
+													"target_property_name": "#visible"
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
 				"note": {
 					"type": "image",
 					"texture": "textures/ui/cosmos/note_box",
@@ -201,16 +342,47 @@
 					"size": [110, 50],
 					"anchor_from": "bottom_right",
 					"anchor_to": "bottom_right",
-					"offset": [-100, -10],
+					"offset": [-100, -5],
+					"bindings": [
+						{
+							"binding_type": "view",
+							"source_property_name": "(not (#form_text = ''))",
+							"target_property_name": "#visible"
+						}
+					],
 					"controls": [
 						{
-							"note_label": {
+							"moons_note": {
 								"type": "label",
-								"text": "#form_text",
+								"text": "Click again to zoom (view moons and satellites)",
 								"text_alignment": "center",
 								"color": [0.7, 0.7, 0.7],
 								"size": ["100%", "default"],
-								"layer": 2
+								"layer": 2,
+								"bindings": [
+									{
+										"binding_type": "view",
+										"source_property_name": "(#form_text - ('%.9s' * #form_text) = 'Overworld')",
+										"target_property_name": "#visible"
+									}
+								]
+							}
+						},
+						{
+							"no_moons_note": {
+								"type": "label",
+								"text": "Click again to zoom",
+								"text_alignment": "center",
+								"color": [0.7, 0.7, 0.7],
+								"size": ["100%", "default"],
+								"layer": 2,
+								"bindings": [
+									{
+										"binding_type": "view",
+										"source_property_name": "(not (#form_text - ('%.9s' * #form_text) = 'Overworld'))",
+										"target_property_name": "#visible"
+									}
+								]
 							}
 						}
 					]
@@ -221,8 +393,6 @@
 	"celestial_panel_background": {
 		"type": "image",
 		"texture": "textures/ui/cosmos/space",
-		"fill": true,
-		"size": [700, 400],
 		"layer": 2
 	},
 	"catalog_button@cosmos.button": {
@@ -234,7 +404,7 @@
 			},
 			{
 				"hover@cosmos.catalog_planet": {
-					"offset": [10, 0]
+					"offset": [5, 0]
 				}
 			}
 		],
@@ -351,7 +521,54 @@
 			}
 		]
 	},
+	
 	"catalog_planet": {
+		"type": "panel",
+		"controls": [
+			{
+				"seleted@cosmos.catalog_planet_panal": {
+					"offset": [10, 0],
+					"bindings": [
+						{
+							"binding_type": "collection_details",
+							"binding_collection_name": "form_buttons"
+						},
+						{
+							"binding_name": "#form_button_text",
+							"binding_type": "collection",
+							"binding_collection_name": "form_buttons"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "(('%.6s' * #form_button_text) - ('%.5s' * #form_button_text) = 't')",
+							"target_property_name": "#visible"
+						}
+					]
+				}
+			},
+			{
+				"unselected@cosmos.catalog_planet_panal": {
+					"bindings": [
+						{
+							"binding_type": "collection_details",
+							"binding_collection_name": "form_buttons"
+						},
+						{
+							"binding_name": "#form_button_text",
+							"binding_type": "collection",
+							"binding_collection_name": "form_buttons"
+						},
+						{
+							"binding_type": "view",
+							"source_property_name": "(('%.6s' * #form_button_text) - ('%.5s' * #form_button_text) = 'f')",
+							"target_property_name": "#visible"
+						}
+					]
+				}
+			}
+		]
+	},
+	"catalog_planet_panal": {
 		"type": "image",
 		"texture": "textures/ui/cosmos/planet_box",
 		"color": [0, 0.5, 1],
@@ -428,7 +645,7 @@
 						},
 						{
 							"binding_type": "view",
-							"source_property_name": "(#form_button_text - ('%.3s' * #form_button_text))",
+							"source_property_name": "(#form_button_text - ('%.6s' * #form_button_text))",
 							"target_property_name": "#xyname"
 						},
 						{
@@ -463,9 +680,10 @@
 			{
 				"Sol@cosmos.space_object": {
 					"$offset": [0, 0],
-					"$size": [30, 30],
+					"$size": [16, 16],
+					"$selection_size": [24, 24],
 					"$name": "Sol",
-					"$texture": "textures/environment/sun"
+					"$texture": "textures/ui/cosmos/sol"
 				}
 			},
 			{
@@ -554,6 +772,7 @@
 	"space_object": {
 		"type": "panel",
 		"size": [8, 8],
+		"$selection_size": [16, 16],
 		"anchor_to": "top_left",
 		"anchor_from": "top_left",
 		"offset": "$offset",
@@ -575,7 +794,7 @@
 			},
 			{
 				"binding_type": "view",
-				"source_property_name": "(#form_button_text - ('%.3s' * #form_button_text))",
+				"source_property_name": "(#form_button_text - ('%.6s' * #form_button_text))",
 				"target_property_name": "#xyname"
 			},
 			{
@@ -598,16 +817,42 @@
 			{
 				"button@cosmos.button": {
 					"size": [16, 16],
+					"$selection_size": "$selection_size",
 					"$action": "button.form_button_click",
 					"anchor_to": "center",
 					"anchor_from": "bottom_right",
 					"controls": [
 						{
+							"selection_box": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/selection_box",
+								"color": [0.2, 0.8, 1],
+								"size": "$selection_size",
+								"layer": 6,
+								"bindings": [
+									{
+										"binding_type": "collection_details",
+										"binding_collection_name": "form_buttons"
+									},
+									{
+										"binding_name": "#form_button_text",
+										"binding_type": "collection",
+										"binding_collection_name": "form_buttons"
+									},
+									{
+										"binding_type": "view",
+										"source_property_name": "(('%.6s' * #form_button_text) - ('%.5s' * #form_button_text) = 't')",
+										"target_property_name": "#visible"
+									}
+								]
+							}
+						},
+						{
 							"hover": {
 								"type": "image",
 								"texture": "textures/ui/cosmos/selection_box",
 								"color": [1, 1, 0],
-								"size": [16, 16],
+								"size": "$selection_size",
 								"layer": 7,
 								"anims": [
 									"@cosmos.fade_out"

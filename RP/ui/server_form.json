@@ -1,9 +1,25 @@
-//WIP
 {
 	"namespace": "server_form",
 
+	"main_screen_content": {
+		"type": "panel",
+		"size": ["100%", "100%"],
+		"controls": [
+			{
+				"server_form_factory": {
+					"type": "factory",
+					"control_ids": {
+						"long_form": "@server_form.long_form",
+						"custom_form": "@server_form.custom_form"
+					}
+				}
+			}
+		]
+  },
+
 	"long_form": {
 		"type": "panel",
+		"size": ["100%", "100%"],
 		"controls": [
 			{
 				"long_form@common_dialogs.main_panel_no_buttons": {

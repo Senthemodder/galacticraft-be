@@ -1,4 +1,3 @@
-//WIP
 {
 	"namespace": "cosmos",
 
@@ -18,7 +17,8 @@
 								"anchor_to": "top_left"
 							}
 						}
-					]
+					],
+					"bindings": "$is_solar_system"
 				}
 			},
 			{
@@ -29,14 +29,24 @@
 					"size": [95, 137],
 					"anchor_from": "top_right",
 					"anchor_to": "top_right",
-					"offset": [-10, 10],
+					"offset": [-5, 5],
+					"bindings": "$has_body",
 					"controls": [
 						{
-							"launch_button@cosmos.form_buttons": {
+							"green_launch_button@cosmos.form_buttons": {
 								"$buttons": "cosmos.launch_button",
 								"anchor_from": "top_right",
 								"anchor_to": "top_right",
-								"offset": [21, 0]
+								"offset": [21, 0],
+								"bindings": "$is_button_green"
+							}
+						},
+						{
+							"red_launch_button@cosmos.launch_button_content": {
+								"color": [1, 0, 0],
+								"anchor_from": "top_right",
+								"anchor_to": "top_right",
+								"bindings": "$is_button_red"
 							}
 						},
 						{
@@ -70,7 +80,8 @@
 											"offset": [0, 1]
 										}
 									}
-								]
+								],
+								"bindings": "$is_overworld"
 							}
 						}
 					]
@@ -84,7 +95,7 @@
 					"size": [95, 53],
 					"anchor_from": "top_left",
 					"anchor_to": "top_left",
-					"offset": [10, 10],
+					"offset": [5, 5],
 					"controls": [
 						{
 							"name": {
@@ -96,20 +107,23 @@
 							}
 						},
 						{
-							"center": {
+							"sun_center": {
 								"type": "label",
-								"text": "#center",
+								"text": "Sol",
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
 								"offset": [8, 34],
-								"bindings": [
-									{ "binding_name": "#form_title" },
-									{
-										"binding_type": "view",
-										"source_property_name": "(#title_text - 'Celestial Panel ')",
-										"target_property_name": "#center"
-									}
-								]
+								"bindings": "$is_solar_system"
+							}
+						},
+						{
+							"planet_center": {
+								"type": "label",
+								"text": "#planet",
+								"anchor_from": "top_left",
+								"anchor_to": "top_left",
+								"offset": [8, 34],
+								"bindings": "$is_planet"
 							}
 						},
 						{
@@ -151,14 +165,7 @@
 											"anchor_to": "top_left",
 											"offset": [4, 1],
 											"layer": 3,
-											"bindings": [
-												{ "binding_name": "#form_title" },
-												{
-													"binding_type": "view",
-													"source_property_name": "(not(#title_text - 'Celestial Panel ' = 'Sol'))",
-													"target_property_name": "#visible"
-												}
-											]
+											"bindings": "$is_planet"
 										}
 									},
 									{
@@ -169,25 +176,112 @@
 											"anchor_to": "top_left",
 											"offset": [4, 1],
 											"layer": 3,
-											"bindings": [
-												{ "binding_name": "#form_title" },
-												{
-													"binding_type": "view",
-													"source_property_name": "((#title_text - 'Celestial Panel ' = 'Sol'))",
-													"target_property_name": "#visible"
-												}
-											]
+											"bindings": "$is_solar_system"
 										}
 									}
 								]
 							}
 						},
 						{
-							"planets@cosmos.form_buttons": {
-								"$buttons": "cosmos.catalog_button",
+							"solar_system_planets": {
+								"type": "panel",
 								"anchor_from": "top_left",
 								"anchor_to": "top_left",
-								"offset": [2, 49]
+								"offset": [2, 49],
+								"bindings": "$is_solar_system",
+								"controls": [
+									{
+										"solar_system_planets@cosmos.form_buttons": {
+											"$buttons": "cosmos.catalog_planet_button",
+											"anchor_from": "top_left",
+											"anchor_to": "top_left"
+										}
+									}
+								]
+							}
+						},
+						{
+							"planet_moons": {
+								"type": "panel",
+								"anchor_from": "top_left",
+								"anchor_to": "top_left",
+								"offset": [2, 49],
+								"bindings": "$is_planet",
+								"controls": [
+									{
+										"solar_system_planets@cosmos.form_buttons": {
+											"$buttons": "cosmos.catalog_moon_button",
+											"anchor_from": "top_left",
+											"anchor_to": "top_left"
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"title": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/title_box",
+					"color": [0, 0.5, 1],
+					"size": [141, 16],
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"offset": [0, 5],
+					"bindings": "$has_body",
+					"controls": [
+						{
+							"note_label": {
+								"type": "label",
+								"text": "#planet",
+								"layer": 2,
+								"bindings": "$get_planet"
+							}
+						},
+						{
+							"red_tier": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/title_box",
+								"color": [1, 0, 0],
+								"size": [94, 11],
+								"anchor_from": "bottom_middle",
+								"anchor_to": "top_middle",
+								"bindings": "$is_red_tier",
+								"controls": [
+									{
+										"note_label": {
+											"type": "label",
+											"text": "#tier",
+											"color": [0.7, 0.7, 0.7],
+											"layer": 2,
+											"bindings": "$get_tier"
+										}
+									}
+								]
+							}
+						},
+						{
+							"green_tier": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/title_box",
+								"color": [0, 1, 0],
+								"size": [94, 11],
+								"anchor_from": "bottom_middle",
+								"anchor_to": "top_middle",
+								"bindings": "$is_green_tier",
+								"controls": [
+									{
+										"note_label": {
+											"type": "label",
+											"text": "#tier",
+											"color": [0.7, 0.7, 0.7],
+											"layer": 2,
+											"bindings": "$get_tier"
+										}
+									}
+								]
 							}
 						}
 					]
@@ -201,19 +295,33 @@
 					"size": [110, 50],
 					"anchor_from": "bottom_right",
 					"anchor_to": "bottom_right",
-					"offset": [-100, -10],
+					"offset": [-100, -5],
+					"bindings": "$has_body",
 					"controls": [
 						{
-							"note_label": {
+							"moons_note": {
 								"type": "label",
-								"text": "#form_text",
+								"text": "Click again to zoom (view moons and satellites)",
 								"text_alignment": "center",
 								"color": [0.7, 0.7, 0.7],
 								"size": ["100%", "default"],
-								"layer": 2
+								"layer": 2,
+								"bindings": "$is_overworld"
+							}
+						},
+						{
+							"no_moons_note": {
+								"type": "label",
+								"text": "Click again to zoom",
+								"text_alignment": "center",
+								"color": [0.7, 0.7, 0.7],
+								"size": ["100%", "default"],
+								"layer": 2,
+								"bindings": "$not_overworld"
 							}
 						}
-					]
+					],
+					"bindings": "$is_solar_system"
 				}
 			}
 		]
@@ -221,11 +329,9 @@
 	"celestial_panel_background": {
 		"type": "image",
 		"texture": "textures/ui/cosmos/space",
-		"fill": true,
-		"size": [700, 400],
 		"layer": 2
 	},
-	"catalog_button@cosmos.button": {
+	"catalog_planet_button@cosmos.button": {
 		"size": [93, 14],
 		"$action": "button.form_button_click",
 		"controls": [
@@ -234,26 +340,26 @@
 			},
 			{
 				"hover@cosmos.catalog_planet": {
-					"offset": [10, 0]
+					"offset": [5, 0]
 				}
 			}
 		],
-		"bindings": [
+		"bindings": "$is_planet_button"
+	},
+	"catalog_moon_button@cosmos.button": {
+		"size": [93, 14],
+		"$action": "button.form_button_click",
+		"controls": [
 			{
-				"binding_type": "collection_details",
-				"binding_collection_name": "form_buttons"
+				"default@cosmos.catalog_planet": {}
 			},
 			{
-				"binding_name": "#form_button_text",
-				"binding_type": "collection",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(#form_button_text - 'LAUNCH' - 'CREATE' - 'Sol' = #form_button_text)",
-				"target_property_name": "#visible"
+				"hover@cosmos.catalog_planet": {
+					"offset": [5, 0]
+				}
 			}
-		]
+		],
+		"bindings": "$is_moon_button"
 	},
 	"launch_button@cosmos.button": {
 		"size": [74, 11],
@@ -270,22 +376,7 @@
 				}
 			}
 		],
-		"bindings": [
-			{
-				"binding_type": "collection_details",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_name": "#form_button_text",
-				"binding_type": "collection",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(not(#form_button_text - 'LAUNCH' = #form_button_text))",
-				"target_property_name": "#visible"
-			}
-		]
+		"bindings": "$is_launch_button"
 	},
 	"create_station_button@cosmos.button": {
 		"size": [93, 12],
@@ -300,22 +391,7 @@
 				}
 			}
 		],
-		"bindings": [
-			{
-				"binding_type": "collection_details",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_name": "#form_button_text",
-				"binding_type": "collection",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(not(#form_button_text - 'CREATE' = #form_button_text))",
-				"target_property_name": "#visible"
-			}
-		]
+		"bindings": "$is_create_station_button"
 	},
 	"launch_button_content": {
 		"type": "image",
@@ -351,7 +427,24 @@
 			}
 		]
 	},
+	
 	"catalog_planet": {
+		"type": "panel",
+		"controls": [
+			{
+				"seleted@cosmos.catalog_planet_panal": {
+					"offset": [10, 0],
+					"bindings": "$is_selected"
+				}
+			},
+			{
+				"unselected@cosmos.catalog_planet_panal": {
+					"bindings": "$not_selected"
+				}
+			}
+		]
+	},
+	"catalog_planet_panal": {
 		"type": "image",
 		"texture": "textures/ui/cosmos/planet_box",
 		"color": [0, 0.5, 1],
@@ -365,22 +458,7 @@
 					"color": [0, 1, 0],
 					"size": [98, 10],
 					"layer": 3,
-					"bindings": [
-						{
-							"binding_type": "collection_details",
-							"binding_collection_name": "form_buttons"
-						},
-						{
-							"binding_name": "#form_button_text",
-							"binding_type": "collection",
-							"binding_collection_name": "form_buttons"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "('%.3s' * #form_button_text = '§t')",
-							"target_property_name": "#visible"
-						}
-					]
+					"bindings": "$is_catalog_button_green"
 				}
 			},
 			{
@@ -390,22 +468,7 @@
 					"color": [1, 0, 0],
 					"size": [98, 10],
 					"layer": 3,
-					"bindings": [
-						{
-							"binding_type": "collection_details",
-							"binding_collection_name": "form_buttons"
-						},
-						{
-							"binding_name": "#form_button_text",
-							"binding_type": "collection",
-							"binding_collection_name": "form_buttons"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "('%.3s' * #form_button_text = '§f')",
-							"target_property_name": "#visible"
-						}
-					]
+					"bindings": "$is_catalog_button_red"
 				}
 			},
 			{
@@ -416,42 +479,7 @@
 					"anchor_to": "top_left",
 					"offset": [4, 3],
 					"layer": 5,
-					"bindings": [
-						{
-							"binding_type": "collection_details",
-							"binding_collection_name": "form_buttons"
-						},
-						{
-							"binding_name": "#form_button_text",
-							"binding_type": "collection",
-							"binding_collection_name": "form_buttons"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#form_button_text - ('%.3s' * #form_button_text))",
-							"target_property_name": "#xyname"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#xyname - 'x'))",
-							"target_property_name": "#x"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#xyname - ('x' + #x)))",
-							"target_property_name": "#yname"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#yname - 'y'))",
-							"target_property_name": "#y"
-						},
-						{
-							"binding_type": "view",
-							"source_property_name": "(#yname - ('y' + #y)))",
-							"target_property_name": "#name"
-						}
-					]
+					"bindings": "$get_planet_name"
 				}
 			}
 		]
@@ -463,9 +491,10 @@
 			{
 				"Sol@cosmos.space_object": {
 					"$offset": [0, 0],
-					"$size": [30, 30],
+					"$size": [16, 16],
+					"$selection_size": [24, 24],
 					"$name": "Sol",
-					"$texture": "textures/environment/sun"
+					"$texture": "textures/ui/cosmos/sol"
 				}
 			},
 			{
@@ -533,81 +562,42 @@
 					"$texture": "textures/ui/cosmos/neptune"
 				}
 			}
-		],
-		"bindings": [
-			{
-				"binding_type": "collection_details",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_name": "#form_button_text",
-				"binding_type": "collection",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(not (#form_button_text = 'LAUNCH'))",
-				"target_property_name": "#visible"
-			}
 		]
 	},
 	"space_object": {
 		"type": "panel",
 		"size": [8, 8],
+		"$selection_size": [16, 16],
 		"anchor_to": "top_left",
 		"anchor_from": "top_left",
 		"offset": "$offset",
 		"$size": [8, 8],
-		"bindings": [
-			{
-				"binding_type": "collection_details",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_name": "#form_button_text",
-				"binding_type": "collection",
-				"binding_collection_name": "form_buttons"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(not (#form_button_text - $name = #form_button_text))",
-				"target_property_name": "#visible"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(#form_button_text - ('%.3s' * #form_button_text))",
-				"target_property_name": "#xyname"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(#xyname - 'x'))",
-				"target_property_name": "#size_binding_x"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(#xyname - ('x' + #size_binding_x)))",
-				"target_property_name": "#yname"
-			},
-			{
-				"binding_type": "view",
-				"source_property_name": "(#yname - 'y'))",
-				"target_property_name": "#size_binding_y"
-			}
-		],
+		"bindings": "$set_coords",
 		"controls": [
 			{
 				"button@cosmos.button": {
 					"size": [16, 16],
+					"$selection_size": "$selection_size",
 					"$action": "button.form_button_click",
 					"anchor_to": "center",
 					"anchor_from": "bottom_right",
 					"controls": [
 						{
+							"selection_box": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/selection_box",
+								"color": [0.2, 0.8, 1],
+								"size": "$selection_size",
+								"layer": 6,
+								"bindings": "$is_selected"
+							}
+						},
+						{
 							"hover": {
 								"type": "image",
 								"texture": "textures/ui/cosmos/selection_box",
 								"color": [1, 1, 0],
-								"size": [16, 16],
+								"size": "$selection_size",
 								"layer": 7,
 								"anims": [
 									"@cosmos.fade_out"
@@ -615,17 +605,7 @@
 							}
 						}
 					],
-					"bindings": [
-						{
-							"binding_type": "collection_details",
-							"binding_collection_name": "form_buttons"
-						},
-						{
-							"binding_name": "#form_button_text",
-							"binding_type": "collection",
-							"binding_collection_name": "form_buttons"
-						}
-					]
+					"bindings": "$read_buttons"
 				}
 			},
 			{

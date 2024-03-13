@@ -20,7 +20,7 @@ const moons = {
 	Sol: {},
 	Mercury: {},
 	Venus: {},
-	Overworld: {Moon: {tier: 1, x:280, y:130}},
+	Overworld: {Moon: {tier: 1, x:274, y:24}},
 	Mars: {},
 	Asteroids: {},
 	Jupiter: {},
@@ -39,7 +39,6 @@ function zoom_at(player, focused, planet) {
 			`${planet}`
 		)
 	} else {
-		world.sendMessage(JSON.stringify(moons[planet][focused].tier))
 		form.body(
 			`§${rocket_tier >= moons[planet][focused].tier ? 't' : 'f'}`+
 			`Tier ${moons[planet][focused].tier < 6 ? '' + moons[planet][focused]?.tier : '?' }`+
@@ -69,7 +68,7 @@ function zoom_at(player, focused, planet) {
 		}
 		switch (response.selection) {
 			case 0: zoom_at(player, planet, planet); return; break;
-			case Object.keys(moons[planet]).length + 1: world.sendMessage("go"); return; break;
+			case Object.keys(moons[planet]).length + 1: launch(player, focused); return; break;
 			case Object.keys(moons[planet]).length + 2: world.sendMessage("build space station"); return; break;
 		}
 		const moon = Object.keys(moons[planet])[response.selection - 1];
@@ -104,13 +103,17 @@ function select_solar_system(player, focused) {
 			world.sendMessage("back"); return;
 		}
 		switch (response.selection) {
-			case 10: world.sendMessage("go"); return; break;
+			case 10: launch(player, focused); return; break;
 			case 11: world.sendMessage("build space station"); return; break;
 		}
 		const planet = Object.keys(solar_system)[response.selection]
 		if (planet == focused) {zoom_at(player, planet, planet)}
 		else {select_solar_system(player, planet)}
 	})
+}
+
+function launch(player, planet) {
+	overworld.runCommand(`say Launch ${player.nameTag} to ${planet}`)
 }
 
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {

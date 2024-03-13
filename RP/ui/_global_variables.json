@@ -1,0 +1,331 @@
+{
+	//bindings ************************************************************
+	"$is_solar_system": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#title_text - 'Celestial Panel ' = 'Solar System')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$not_solar_system": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#title_text - 'Celestial Panel ' = 'Solar System'))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_planet": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#title_text - 'Celestial Panel ' = 'Solar System'))",
+			"target_property_name": "#visible"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#title_text - 'Celestial Panel ')",
+			"target_property_name": "#planet"
+		}
+	],
+	"$has_body": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(not (#form_text = ''))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_button_green": [
+		{
+			"binding_name": "#form_button_length",
+			"binding_name_override": "#collection_length"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.3s' * #form_text) = '§t')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_button_red": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.3s' * #form_text) = '§f')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_catalog_button_green": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "('%.3s' * #form_button_text = '§t')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_catalog_button_red": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "('%.3s' * #form_button_text = '§f')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_overworld": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_text - ('%.9s' * #form_text) = 'Overworld')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$not_overworld": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#form_text - ('%.9s' * #form_text) = 'Overworld'))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$title_overworld": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#title_text = #title_text - 'Overworld'))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_planet_button": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_button_text - 'LAUNCH' - 'CREATE' - 'Sol' = #form_button_text)",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_moon_button": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not (#form_button_text - 'Moon' = #form_button_text))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_launch_button": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not(#form_button_text - 'LAUNCH' = #form_button_text))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_create_station_button": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not (#form_button_text - 'CREATE' = #form_button_text))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$get_planet": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_text - ('%.9s' * #form_text))",
+			"target_property_name": "#planet"
+		}
+	],
+	"$get_tier": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.9s' * #form_text) - ('%.3s' * #form_text))",
+			"target_property_name": "#tier"
+		}
+	],
+	"$get_planet_name": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_button_text - ('%.6s' * #form_button_text))",
+			"target_property_name": "#xyname"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#xyname - 'x'))",
+			"target_property_name": "#x"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#xyname - ('x' + #x)))",
+			"target_property_name": "#yname"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#yname - 'y'))",
+			"target_property_name": "#y"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#yname - ('y' + #y)))",
+			"target_property_name": "#name"
+		}
+	],
+	"$is_red_tier": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.3s' * #form_text) = '§f')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_green_tier": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.3s' * #form_text) = '§t')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_selected": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.6s' * #form_button_text) - ('%.5s' * #form_button_text) = 't')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$not_selected": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.6s' * #form_button_text) - ('%.5s' * #form_button_text) = 'f')",
+			"target_property_name": "#visible"
+		}
+	],
+	"$set_coords": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not (#form_button_text - $name = #form_button_text))",
+			"target_property_name": "#visible"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_button_text - ('%.6s' * #form_button_text))",
+			"target_property_name": "#xyname"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#xyname - 'x'))",
+			"target_property_name": "#size_binding_x"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#xyname - ('x' + #size_binding_x)))",
+			"target_property_name": "#yname"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#yname - 'y'))",
+			"target_property_name": "#size_binding_y"
+		}
+	],
+	"$choose_planet": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not (#form_button_text - $name = #form_button_text))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$read_buttons": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		}
+	]
+}
+

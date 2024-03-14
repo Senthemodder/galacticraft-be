@@ -44,7 +44,7 @@ const solar_system = {
 	Venus: {tier: 3, distance: 78, turn: 225, init_angle: 178},
 	Overworld: {tier: 1, distance: 98, turn: 360, init_angle: 100},
 	Mars: {tier: 2, x:246, distance: 119, turn: 687, init_angle: 0},
-	Asteroids: {tier: 3, distance: 126},
+	Asteroids: {tier: 3, distance: 129},
 	Jupiter: {tier: 4, distance: 141, turn: 11.86 * 360, init_angle: 36},
 	Saturn: {tier: 100, distance: 161, turn: 29.46 * 360, init_angle: 47},
 	Uranus: {tier: 100, distance: 182, turn: 84.01 * 360, init_angle: 315},

@@ -14,6 +14,13 @@
 			"target_property_name": "#visible"
 		}
 	],
+	"$can_zoom": [
+		{
+			"binding_type": "view",
+			"source_property_name": "((#title_text - 'Celestial Panel ' = 'Solar System') and not(#form_text = ''))",
+			"target_property_name": "#visible"
+		}
+	],
 	"$is_planet": [
 		{
 			"binding_type": "view",
@@ -90,6 +97,13 @@
 			"target_property_name": "#visible"
 		}
 	],
+	"$is_asteroid": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_text - ('%.9s' * #form_text) = 'Asteroid')",
+			"target_property_name": "#visible"
+		}
+	],
 	"$not_overworld": [
 		{
 			"binding_type": "view",
@@ -117,6 +131,22 @@
 		{
 			"binding_type": "view",
 			"source_property_name": "(#form_button_text - 'LAUNCH' - 'CREATE' - 'Sol' = #form_button_text)",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_asteroid_render": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(not (#form_button_text - 'Asteroid' = #form_button_text)",
 			"target_property_name": "#visible"
 		}
 	],

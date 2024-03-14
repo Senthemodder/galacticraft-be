@@ -63,6 +63,7 @@
 					"anchor_from": "top_right",
 					"anchor_to": "top_right",
 					"offset": [-5, 5],
+					"layer": 8,
 					"bindings": "$has_body",
 					"controls": [
 						{
@@ -328,6 +329,7 @@
 					"size": [110, 50],
 					"anchor_from": "bottom_right",
 					"anchor_to": "bottom_right",
+					"layer": 21,
 					"offset": [-100, -5],
 					"bindings": "$has_body",
 					"controls": [
@@ -338,7 +340,7 @@
 								"text_alignment": "center",
 								"color": [0.7, 0.7, 0.7],
 								"size": ["100%", "default"],
-								"layer": 2,
+								"layer": 22,
 								"bindings": "$is_overworld"
 							}
 						},
@@ -349,12 +351,12 @@
 								"text_alignment": "center",
 								"color": [0.7, 0.7, 0.7],
 								"size": ["100%", "default"],
-								"layer": 2,
+								"layer": 22,
 								"bindings": "$not_overworld"
 							}
 						}
 					],
-					"bindings": "$is_solar_system"
+					"bindings": "$can_zoom"
 				}
 			}
 		]
@@ -562,7 +564,7 @@
 				"Asteroids@cosmos.space_object": {
 					"$offset": [0, -5],
 					"$name": "Asteroids",
-					"$texture": "textures/ui/cosmos/asteroid"
+					"$texture": "textures/ui/cosmos/none"
 				}
 			},
 			{
@@ -655,13 +657,35 @@
 				}
 			},
 			{
-				"image": {
+				"planet_image": {
 					"type": "image",
 					"texture": "$texture",
 					"size": "$size",
 					"anchor_to": "center",
 					"anchor_from": "bottom_right",
 					"layer": 3
+				}
+			},
+			{
+				"asteroid_image": {
+					"type": "image",
+					"texture": "textures/ui/cosmos/spin_asteroid",
+					"size": [10, 10],
+					"uv_size": [ 80, 80 ],
+					"anchor_to": "center",
+					"anchor_from": "bottom_right",
+					"layer": 4,
+					"anims": [
+						{
+							"animation": {
+								"anim_type": "flip_book",
+								"fps": 4,
+								"frame_count": 12,
+								"frame_step": 80
+							}
+						}
+					],
+					"bindings": "$is_asteroid_render"
 				}
 			}
 		]
@@ -706,10 +730,9 @@
 				}
 			},
 			{
-				"Asteroids@cosmos.centered_planet": {
+				"Asteroids@cosmos.centered_asteroid": {
 					"offset": [0, -5],
-					"$name": "Asteroids",
-					"texture": "textures/ui/cosmos/asteroid"
+					"bindings": "$is_asteroid_render"
 				}
 			},
 			{
@@ -749,6 +772,54 @@
 		"$size": [32, 32],
 		"size": "$size",
 		"bindings": "$choose_planet",
+		"controls": [
+			{
+				"button@cosmos.button": {
+					"$action": "button.form_button_click",
+					"controls": [
+						{
+							"selection_box": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/selection_box",
+								"color": [0.2, 0.8, 1],
+								"size": ["150%", "150%"],
+								"layer": 6,
+								"bindings": "$is_selected"
+							}
+						},
+						{
+							"hover": {
+								"type": "image",
+								"texture": "textures/ui/cosmos/selection_box",
+								"color": [1, 1, 0],
+								"size": ["150%", "150%"],
+								"layer": 7,
+								"anims": [
+									"@cosmos.fade_out"
+								]
+							}
+						}
+					],
+					"bindings": "$read_buttons"
+				}
+			}
+		]
+	},
+	"centered_asteroid": {
+		"type": "image",
+		"texture": "textures/ui/cosmos/spin_asteroid",
+		"size": [40, 40],
+		"uv_size": [ 80, 80 ],
+		"anims": [
+			{
+				"animation": {
+					"anim_type": "flip_book",
+					"fps": 4,
+					"frame_count": 12,
+					"frame_step": 80
+				}
+			}
+		],
 		"controls": [
 			{
 				"button@cosmos.button": {

@@ -3,15 +3,16 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "Oxygen Gear"
+            "value": "Thermal Chestplate"
          },
          "minecraft:icon": {
-            "texture": "oxygen_gear"
+            "texture": "thermal_chestplate"
          },
-         "tag:csm:gear": {}
+         "minecraft:max_stack_size": 1,
+         "tag:csm:body": {}
       },
       "description": {
-         "identifier": "galacticraft:oxygen_gear"
+         "identifier": "galacticraft:thermal_chestplate"
       }
    }
 }

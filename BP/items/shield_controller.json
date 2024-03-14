@@ -3,15 +3,15 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "Oxygen Gear"
+            "value": "Shield Controller"
          },
          "minecraft:icon": {
-            "texture": "oxygen_gear"
+            "texture": "shield_controller"
          },
-         "tag:csm:gear": {}
+         "tag:csm:thermal": {}
       },
       "description": {
-         "identifier": "galacticraft:oxygen_gear"
+         "identifier": "galacticraft:shield_controller"
       }
    }
 }

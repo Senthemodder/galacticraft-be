@@ -3,15 +3,16 @@
    "minecraft:item": {
       "components": {
          "minecraft:display_name": {
-            "value": "Oxygen Gear"
+            "value": "Thermal Helmet"
          },
          "minecraft:icon": {
-            "texture": "oxygen_gear"
+            "texture": "thermal_helmet"
          },
-         "tag:csm:gear": {}
+         "minecraft:max_stack_size": 1,
+         "tag:csm:head": {}
       },
       "description": {
-         "identifier": "galacticraft:oxygen_gear"
+         "identifier": "galacticraft:thermal_helmet"
       }
    }
 }

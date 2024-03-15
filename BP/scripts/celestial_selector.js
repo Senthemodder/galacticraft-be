@@ -31,6 +31,22 @@ function set_moon_locations(moon) {
 	moons.Overworld[moon].x = coods.x
 	moons.Overworld[moon].y = coods.y
 }
+function read_inventory(player) {
+	const inventory = player.getComponent("inventory").container
+	const items = []
+	for (let item = 0; item < inventory.size; item++) {
+		if (inventory.getItem(item) == undefined) {continue};
+		items.push({id: inventory.getItem(item).typeId, amount: inventory.getItem(item).amount})
+	}
+	let results = ['§','f','§','f','§','f','§','f'];
+	items.forEach((item)=> {
+		if (item.id == 'minecraft:gold_ingot' && item.amount >= 16) {results[1] = 't'};
+		if (item.id == 'minecraft:heart_of_the_sea') {results[3] = 't'};
+		if (item.id == 'minecraft:copper_ingot' && item.amount >= 32) {results[5] = 't'};
+		if (item.id == 'minecraft:iron_ingot' && item.amount >= 24) {results[7] = 't'};
+	})
+	return results.join('')
+}
 function angle_to_vector(angle, distance, center) {
 	angle = (Math.PI / 180) * angle; // to randian
 	return {
@@ -66,9 +82,9 @@ const moons = {
 }
 if (world.getDynamicProperty("Overworld_space_station")) {
 	moons.Overworld.Space_Station = {tier: 1, distance:98}
-} else world.getDynamicProperty("Overworld_space_station", false)
+} else world.setDynamicProperty("Overworld_space_station", false)
 
-function zoom_at(player, focused, planet) {
+function zoom_at(player, focused, planet, station_materials) {
 	const station = world.getDynamicProperty("Overworld_space_station");
 	let form = new ActionFormData()
 	.title("Celestial Panel " +`§${station ? 't' : 'f'}`+ planet)
@@ -103,23 +119,23 @@ function zoom_at(player, focused, planet) {
 		)
 	}
 	form.button("LAUNCH")
-	.button("CREATE")
+	.button(station_materials + "CREATE")
 	.show(player)
 	.then((response) => {
 		if (response.canceled) {
 			select_solar_system(player, ''); return;
 		}
 		switch (response.selection) {
-			case 0: zoom_at(player, planet, planet); return; break;
+			case 0: zoom_at(player, planet, planet, station_materials); return; break;
 			case Object.keys(moons[planet]).length + 1: launch(player, focused); return; break;
 			case Object.keys(moons[planet]).length + 2: create_station(player, focused); return; break;
 		}
 		const moon = Object.keys(moons[planet])[response.selection - 1];
-		zoom_at(player, moon, planet);
+		zoom_at(player, moon, planet, station_materials);
 	})
 }
 
-function select_solar_system(player, focused) {
+function select_solar_system(player, focused, station_materials) {
 	set_planet_locations()
 	const station = world.getDynamicProperty("Overworld_space_station");
 	let form = new ActionFormData()
@@ -142,7 +158,7 @@ function select_solar_system(player, focused) {
 		)
 	}
 	form.button("LAUNCH")
-	.button("CREATE")
+	.button(station_materials + "CREATE")
 	.show(player)
 	.then((response) => {
 		if (response.canceled) {
@@ -153,8 +169,8 @@ function select_solar_system(player, focused) {
 			case 11: create_station(player, focused); return; break;
 		}
 		const planet = Object.keys(solar_system)[response.selection]
-		if (planet == focused) {zoom_at(player, planet, planet)}
-		else {select_solar_system(player, planet)}
+		if (planet == focused) {zoom_at(player, planet, planet, station_materials)}
+		else {select_solar_system(player, planet, station_materials)}
 	})
 }
 
@@ -162,16 +178,21 @@ function launch(player, planet) {
 	overworld.runCommand(`say Launch ${player.nameTag} to ${planet}`)
 }
 
-function create_station(player, planet) {
+function create_station(player, planet, station_materials) {
 	world.setDynamicProperty(`${planet}_space_station`, true)
+	player.runCommand("clear @s gold_ingot 0 16");
+	player.runCommand("clear @s heart_of_the_sea 0 1");
+	player.runCommand("clear @s copper_ingot 0 32");
+	player.runCommand("clear @s iron_ingot 0 24");
 	moons.Overworld.Space_Station = {tier: 1, distance:98}
-	zoom_at(player, planet, planet)
+	zoom_at(player, planet, planet, station_materials)
 }
 
 world.afterEvents.itemUse.subscribe(({itemStack, source}) => {
 	if ( (itemStack.typeId === "minecraft:compass") ) {
 		set_astroids_locations()
-		select_solar_system(source, '')
+		const station_materials = read_inventory(source)
+		select_solar_system(source, '', station_materials)
 	}
 })
 

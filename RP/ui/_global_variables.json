@@ -29,7 +29,7 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "(#title_text - 'Celestial Panel ')",
+			"source_property_name": "(#title_text - ('%.19s' * #title_text))",
 			"target_property_name": "#planet"
 		}
 	],
@@ -93,21 +93,28 @@
 	"$is_overworld": [
 		{
 			"binding_type": "view",
-			"source_property_name": "(#form_text - ('%.9s' * #form_text) = 'Overworld')",
+			"source_property_name": "(#form_text - ('%.12s' * #form_text) = 'Overworld')",
 			"target_property_name": "#visible"
 		}
 	],
 	"$is_asteroid": [
 		{
 			"binding_type": "view",
-			"source_property_name": "(#form_text - ('%.9s' * #form_text) = 'Asteroid')",
+			"source_property_name": "(#form_text - ('%.12s' * #form_text) = 'Asteroid')",
 			"target_property_name": "#visible"
 		}
 	],
 	"$not_overworld": [
 		{
 			"binding_type": "view",
-			"source_property_name": "(not(#form_text - ('%.9s' * #form_text) = 'Overworld'))",
+			"source_property_name": "(not(#form_text - ('%.12s' * #form_text) = 'Overworld'))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$can_have_station": [
+		{
+			"binding_type": "view",
+			"source_property_name": "((('%.6s' * #form_text) - ('%.5s' * #form_text) = 'f') and (#form_text - ('%.12s' * #form_text) = 'Overworld'))",
 			"target_property_name": "#visible"
 		}
 	],
@@ -115,6 +122,13 @@
 		{
 			"binding_type": "view",
 			"source_property_name": "(not(#title_text = #title_text - 'Overworld'))",
+			"target_property_name": "#visible"
+		}
+	],
+	"$satellited_overworld": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(('%.19s' * #title_text) - ('%.18s' * #title_text) = 't') and not(#title_text = #title_text - 'Overworld'))",
 			"target_property_name": "#visible"
 		}
 	],
@@ -162,7 +176,7 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "(not (#form_button_text - 'Moon' = #form_button_text))",
+			"source_property_name": "(not (#form_button_text - 'Moon' - 'Space Station' = #form_button_text))",
 			"target_property_name": "#visible"
 		}
 	],
@@ -201,14 +215,14 @@
 	"$get_planet": [
 		{
 			"binding_type": "view",
-			"source_property_name": "(#form_text - ('%.9s' * #form_text))",
+			"source_property_name": "(#form_text - ('%.12s' * #form_text))",
 			"target_property_name": "#planet"
 		}
 	],
 	"$get_tier": [
 		{
 			"binding_type": "view",
-			"source_property_name": "(('%.9s' * #form_text) - ('%.3s' * #form_text))",
+			"source_property_name": "(('%.12s' * #form_text) - ('%.6s' * #form_text))",
 			"target_property_name": "#tier"
 		}
 	],

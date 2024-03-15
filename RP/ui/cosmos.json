@@ -55,6 +55,23 @@
 				}
 			},
 			{
+				"satellite_orbit": {
+					"type": "image",
+					"size": [196, 99],
+					"texture": "textures/ui/cosmos/satellite_orbit",
+					"bindings": "$satellited_overworld",
+					"controls": [
+						{
+							"satellite@cosmos.form_buttons": {
+								"$buttons": "cosmos.satellite",
+								"anchor_from": "top_left",
+								"anchor_to": "top_left"
+							}
+						}
+					]
+				}
+			},
+			{
 				"launch_panel": {
 					"type": "image",
 					"texture": "textures/ui/cosmos/useless_box",
@@ -115,7 +132,7 @@
 										}
 									}
 								],
-								"bindings": "$is_overworld"
+								"bindings": "$can_have_station"
 							}
 						}
 					]
@@ -243,7 +260,7 @@
 								"bindings": "$is_planet",
 								"controls": [
 									{
-										"solar_system_planets@cosmos.form_buttons": {
+										"moon@cosmos.form_buttons": {
 											"$buttons": "cosmos.catalog_moon_button",
 											"anchor_from": "top_left",
 											"anchor_to": "top_left"
@@ -604,10 +621,23 @@
 		"size": [1, 1],
 		"controls": [
 			{
-				"Moon@cosmos.space_object": {
+				"moon@cosmos.space_object": {
 					"$offset": [0, 0],
 					"$name": "Moon",
 					"$texture": "textures/ui/cosmos/moon"
+				}
+			}
+		]
+	},
+	"satellite": {
+		"type": "panel",
+		"size": [1, 1],
+		"controls": [
+			{
+				"space_station@cosmos.space_object": {
+					"$offset": [0, 0],
+					"$name": "Space Station",
+					"$texture": "textures/ui/cosmos/space_station"
 				}
 			}
 		]

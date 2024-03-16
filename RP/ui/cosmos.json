@@ -199,9 +199,9 @@
 									{
 										"station_button@cosmos.form_buttons": {
 											"$buttons": "cosmos.create_station_button",
+											"offset": [0, 1],
 											"anchor_from": "bottom_middle",
-											"anchor_to": "top_middle",
-											"offset": [0, -131]
+											"anchor_to": "top_middle"
 										}
 									}
 								],
@@ -486,87 +486,6 @@
 		],
 		"bindings": "$is_moon_button"
 	},
-	"launch_button@cosmos.button": {
-		"size": [74, 11],
-		"anchor_from": "top_right",
-		"anchor_to": "top_right",
-		"$action": "button.form_button_click",
-		"controls": [
-			{
-				"default@cosmos.launch_button_content": {}
-			},
-			{
-				"hover@cosmos.launch_button_content": {
-					"color": [0.7, 1, 0.3]
-				}
-			}
-		],
-		"bindings": "$is_launch_button"
-	},
-	"launch_button_content": {
-		"type": "image",
-		"texture": "textures/ui/cosmos/launch",
-		"color": [0, 1, 0],
-		"size": [74, 11],
-		"anchor_from": "top_right",
-		"anchor_to": "top_right",
-		"layer": 2,
-		"controls": [
-			{
-				"launch_label": {
-					"type": "label",
-					"text": "LAUNCH",
-					"layer": 3
-				}
-			}
-		]
-	},
-	"create_station_button": {
-		"type": "panel",
-		"size": [93, 12],
-		"controls": [
-			{
-				"green_create_station_button@cosmos.button": {
-					"$action": "button.form_button_click",
-					"size": [93, 12],
-					"controls": [
-						{
-							"default@cosmos.create_station_button_content": {}
-						},
-						{
-							"hover@cosmos.create_station_button_content": {
-								"color": [0.7, 1, 0.3]
-							}
-						}
-					],
-					"bindings": "$can_create_station"
-				}
-			},
-			{
-				"red_create_station_button@cosmos.create_station_button_content": {
-					"color": [1, 0, 0],
-					"bindings": "$cant_create_station"
-				}
-			}
-		]
-	},	
-	"create_station_button_content": {
-		"type": "image",
-		"texture": "textures/ui/cosmos/create_station",
-		"color": [0, 1, 0],
-		"size": [93, 12],
-		"layer": 2,
-		"controls": [
-			{
-				"create_label": {
-					"type": "label",
-					"text": "CREATE",
-					"layer": 3
-				}
-			}
-		]
-	},
-	
 	"catalog_planet": {
 		"type": "panel",
 		"controls": [
@@ -623,6 +542,148 @@
 			}
 		]
 	},
+	
+	"launch_button@cosmos.button": {
+		"size": [74, 11],
+		"anchor_from": "top_right",
+		"anchor_to": "top_right",
+		"$action": "button.form_button_click",
+		"controls": [
+			{
+				"default@cosmos.launch_button_content": {}
+			},
+			{
+				"hover@cosmos.launch_button_content": {
+					"color": [0.7, 1, 0.3]
+				}
+			}
+		],
+		"bindings": "$is_launch_button"
+	},
+	"launch_button_content": {
+		"type": "image",
+		"texture": "textures/ui/cosmos/launch",
+		"color": [0, 1, 0],
+		"size": [74, 11],
+		"anchor_from": "top_right",
+		"anchor_to": "top_right",
+		"layer": 2,
+		"controls": [
+			{
+				"launch_label": {
+					"type": "label",
+					"text": "LAUNCH",
+					"layer": 3
+				}
+			}
+		]
+	},
+	
+	"create_station_button": {
+		"type": "panel",
+		"size": [93, 12],
+		"controls": [
+			{
+				"green_create_station_button@cosmos.button": {
+					"$action": "button.form_button_click",
+					"controls": [
+						{
+							"default@cosmos.create_station_button_content": {}
+						},
+						{
+							"hover@cosmos.create_station_button_content": {
+								"color": [0.7, 1, 0.3]
+							}
+						}
+					],
+					"bindings": "$can_create_station"
+				}
+			},
+			{
+				"red_create_station_button@cosmos.create_station_button_content": {
+					"color": [1, 0, 0],
+					"bindings": "$cant_create_station"
+				}
+			}
+		],
+		"bindings": "$is_create_station_button"
+	},	
+	"create_station_button_content": {
+		"type": "image",
+		"texture": "textures/ui/cosmos/create_station",
+		"color": [0, 1, 0],
+		"size": [93, 12],
+		"layer": 2,
+		"controls": [
+			{
+				"create_label": {
+					"type": "label",
+					"text": "CREATE",
+					"layer": 3
+				}
+			}
+		]
+	},
+	"material": {
+		"type": "panel",
+		"size": ["20%", 32],
+		"controls": [
+			{
+				"icon": {
+					"type": "image",
+					"texture": "('textures/items/' + $id)",
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"size": [16, 16]
+				}
+			},
+			{
+				"text@cosmos.button": {
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"size": [16, 16],
+					"$action": "",
+					"controls": [
+						{
+							"hover": {
+								"type": "custom",
+								"renderer": "hover_text_renderer",
+								"layer": 50,
+								"property_bag": {
+									"#hover_text": "$name"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"red_number@form_buttons": {
+					"offset": [1, 6],
+					"$color": [1, 0, 0],
+					"$condition": "$is_create_station_button",
+					"$buttons": "cosmos.amount_label"
+				}
+			},
+			{
+				"green_number@form_buttons": {
+					"offset": [1, 6],
+					"$color": [0, 1, 0],
+					"$buttons": "cosmos.amount_label"
+				}
+			}
+		]
+	},
+	"amount_label": {
+		"type": "label",
+		"color": "$color",
+		"text_alignment": "center",
+		"text": "$amount",
+		"anchor_to": "top_middle",
+		"size": [16, 12],
+		"bindings": "$condition"
+	},
+	
 	"planet": {
 		"type": "panel",
 		"size": [1, 1],
@@ -971,66 +1032,6 @@
 		]
 	},
 	
-	"material": {
-		"type": "panel",
-		"size": ["20%", 32],
-		"controls": [
-			{
-				"icon": {
-					"type": "image",
-					"texture": "('textures/items/' + $id)",
-					"anchor_from": "top_middle",
-					"anchor_to": "top_middle",
-					"size": [16, 16]
-				}
-			},
-			{
-				"text@cosmos.button": {
-					"anchor_from": "top_middle",
-					"anchor_to": "top_middle",
-					"size": [16, 16],
-					"$action": "",
-					"controls": [
-						{
-							"hover": {
-								"type": "custom",
-								"renderer": "hover_text_renderer",
-								"layer": 50,
-								"property_bag": {
-									"#hover_text": "$name"
-								}
-							}
-						}
-					]
-				}
-			},
-			{
-				"red_number@form_buttons": {
-					"offset": [1, 6],
-					"$color": [1, 0, 0],
-					"$condition": "$is_create_station_button",
-					"$buttons": "cosmos.amount_label"
-				}
-			},
-			{
-				"green_number@form_buttons": {
-					"offset": [1, 6],
-					"$color": [0, 1, 0],
-					"$buttons": "cosmos.amount_label"
-				}
-			}
-		]
-	},
-	
-	"amount_label": {
-		"type": "label",
-		"color": "$color",
-		"text_alignment": "center",
-		"text": "$amount",
-		"anchor_to": "top_middle",
-		"size": [16, 12],
-		"bindings": "$condition"
-	},
 	
 	"form_buttons": {
 		"type": "stack_panel",

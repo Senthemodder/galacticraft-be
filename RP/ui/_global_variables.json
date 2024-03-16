@@ -224,7 +224,7 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "((('%.12s' * #form_button_text) = '§t§t§t§t') and not (#form_button_text - 'CREATE' = #form_button_text))",
+			"source_property_name": "((('%.12s' * #form_button_text) = '§t§t§t§t'))",
 			"target_property_name": "#visible"
 		}
 	],
@@ -240,7 +240,7 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "(not (('%.12s' * #form_button_text) = '§t§t§t§t') and not (#form_button_text - 'CREATE' = #form_button_text))",
+			"source_property_name": "(not (('%.12s' * #form_button_text) = '§t§t§t§t'))",
 			"target_property_name": "#visible"
 		}
 	],

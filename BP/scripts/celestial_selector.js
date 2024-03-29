@@ -80,6 +80,12 @@ const moons = {
 	Uranus: {},
 	Neptune: {},
 }
+const space_stations = [
+	{name: 'Satelite', owner: 'HiYasser444'},
+	{name: 'Death Ray', owner: 'tHeCreeper'},
+	{name: 'Stasis Room', owner: 'Enderman101'},
+]
+
 if (world.getDynamicProperty("Overworld_space_station")) {
 	moons.Overworld.Space_Station = {tier: 1, distance:98}
 } else world.setDynamicProperty("Overworld_space_station", false)
@@ -131,7 +137,45 @@ function zoom_at(player, focused, planet, station_materials) {
 			case Object.keys(moons[planet]).length + 2: create_station(player, focused); return; break;
 		}
 		const moon = Object.keys(moons[planet])[response.selection - 1];
+		if (moon == "Space_Station") {view_stations(player, ''); return}
 		zoom_at(player, moon, planet, station_materials);
+	})
+}
+
+function view_stations(player, focused) {
+	let form = new ActionFormData()
+	.title("Celestial Panel §tOverworld")
+	.body("            Space Station")
+	.button(`§t§f$Overworld`)
+	for (let moon of Object.keys(moons["Overworld"])) {
+		set_moon_locations(moon)
+		form.button(
+			`§t§${moon == 'Space_Station' ? 't' : 'f'}`+
+			`x${moons.Overworld[moon].x}`+
+			`y${moons.Overworld[moon].y}`+
+			`${moon.replaceAll('_', ' ')}`
+		)
+	}
+	form.button("LAUNCH")
+	for (let station of space_stations) {
+		form.button(
+			`§t§${focused == station.name ? 't' : 'f'}`+
+			`space_station: ${station.name}`
+		)
+	}
+	form.show(player)
+	.then((response) => {
+		if (response.canceled) {
+			select_solar_system(player, ''); return;
+		}
+		switch (response.selection) {
+			case 0: zoom_at(player, 'Overworld', 'Overworld', '§f§f§f§f'); return; break;
+			case 1: zoom_at(player, 'Moon', 'Overworld', '§f§f§f§f'); return; break;
+			case 2: view_stations(player, ''); return; break;
+			case 3: launch(player, focused); return; break;
+		}
+		const station = space_stations[response.selection - 4].name;
+		view_stations(player, station);
 	})
 }
 

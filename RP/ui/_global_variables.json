@@ -36,7 +36,7 @@
 	"$has_body": [
 		{
 			"binding_type": "view",
-			"source_property_name": "(not (#form_text = ''))",
+			"source_property_name": "(not (#form_text = '') and (#form_text = #form_text - 'Space Station'))",
 			"target_property_name": "#visible"
 		}
 	],
@@ -97,6 +97,13 @@
 			"target_property_name": "#visible"
 		}
 	],
+	"$is_station": [
+		{
+			"binding_type": "view",
+			"source_property_name": "(not (#form_text = #form_text - 'Space Station'))",
+			"target_property_name": "#visible"
+		}
+	],
 	"$is_asteroid": [
 		{
 			"binding_type": "view",
@@ -144,7 +151,23 @@
 		},
 		{
 			"binding_type": "view",
-			"source_property_name": "(#form_button_text - 'LAUNCH' - 'CREATE' - 'Sol' = #form_button_text)",
+			"source_property_name": "((#form_button_text - 'LAUNCH' - 'CREATE' - 'Sol' = #form_button_text)",
+			"target_property_name": "#visible"
+		}
+	],
+	"$is_station_button": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(( '%.21s' * #form_button_text) - ( '%.6s' * #form_button_text) = 'space_station: '",
 			"target_property_name": "#visible"
 		}
 	],
@@ -355,6 +378,22 @@
 		{
 			"binding_type": "view",
 			"source_property_name": "(#yname - ('y' + #y)))",
+			"target_property_name": "#name"
+		}
+	],
+	"$get_station_name": [
+		{
+			"binding_type": "collection_details",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_name": "#form_button_text",
+			"binding_type": "collection",
+			"binding_collection_name": "form_buttons"
+		},
+		{
+			"binding_type": "view",
+			"source_property_name": "(#form_button_text - ('%.21s' * #form_button_text))",
 			"target_property_name": "#name"
 		}
 	],
